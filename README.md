@@ -108,7 +108,6 @@ end
 Regarding the `db` namespace, migrations tasks must be triggered by a
 target name `db:migrate`.
 
-
 ## Code
 
 Ruby code must use a 2 spaces indentation. Tabs must not be used and
@@ -145,6 +144,24 @@ Deploys should be:
 - hardware independent
 
 Deployment scenarios must use Ansible v1.6+ roles.
+
+Deployement scenarios must be based solely on information found in
+project's README.md
+
+If a scenario can not be written following the information provided in
+the README.md file, this file must be updated or fixed.
+
+## Running environments
+
+Available running environments must include at least :
+
+- development
+- production
+- test
+
+Other alternative names (e.g. `dev`, `prod`) must not be used.
+
+However, additional names can be used (and documented) if needed.
 
 ## Config files
 
