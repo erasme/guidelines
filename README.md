@@ -70,6 +70,9 @@ source 'https://rubygems.org'
 
 An application must come with a `Gemfile.lock`.
 
+However, if specific / minimal versions of some Gem are required, they
+must be set un Gemfile.
+
 ## Web server
 
 The web server currently in use is
@@ -181,7 +184,10 @@ When a `.sample` file changes (added/changed/removed configuration
 keys), the developper must inform the person automating deploys OR
 change the deployment scripts to account for this change.
 
-Thus, deployment tasks must generate proper configuration fileS.
+Thus, deployment tasks must generate proper configuration files.
+
+Inputs coming from configuration files must be sanitized (whitespace
+trimming, slash-deduplication for URLs, etc...).
 
 ## Logging
 
