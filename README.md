@@ -198,6 +198,8 @@ proper entry for the `thin.yml` could be :
 log: /var/log/my_awesome_app/thin.log
 ```
 
+Code should not print to directly to filedescriptors (`puts`, `p`, `pp`, ...) but use a logger instead.
+
 ## Production code
 
 Code deploys are automated and must be done from git checkouts.
