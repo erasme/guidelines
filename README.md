@@ -131,6 +131,14 @@ must be  to 2 spaces :
 }
 ```
 
+### Rubocop configuration
+
+Copy config_files/rubocop.yml to ~/.rubocop.yml
+
+### JSHint configuration
+
+Copy config_files/jshintrc to ~/.jshintrc
+
 # System & Deploys
 
 ## Deploys
