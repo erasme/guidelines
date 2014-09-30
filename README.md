@@ -28,7 +28,7 @@ All code must be under source code control using git.
 
 Public projects must be on github.
 
-Projects must have at least two branches : 
+Projects must have at least two branches :
 - `master` (the stable, deployable branch)
 - `devel` (unstable branch).
 
@@ -131,6 +131,14 @@ must be  to 2 spaces :
 }
 ```
 
+### Rubocop configuration
+
+Copy config_files/rubocop.yml to ~/.rubocop.yml
+
+### JSHint configuration
+
+Copy config_files/jshintrc to ~/.jshintrc
+
 # System & Deploys
 
 ## Deploys
@@ -184,5 +192,3 @@ The stable branch must be the master branch.
 Code and configurations must not be edited by hand on production servers.
 
 Code and configurations should not be edited by hand on staging servers, except for debugging/testing purpose.
-
-
