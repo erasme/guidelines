@@ -108,6 +108,7 @@ end
 Regarding the `db` namespace, migrations tasks must be triggered by a
 target name `db:migrate`.
 
+The `db:migrate` task must create a database dump if an upgrade is required.
 
 ## Code
 
