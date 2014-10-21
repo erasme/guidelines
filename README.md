@@ -70,6 +70,9 @@ source 'https://rubygems.org'
 
 An application must come with a `Gemfile.lock`.
 
+However, if specific / minimal versions of some Gem are required, they
+must be set un Gemfile.
+
 ## Web server
 
 The web server currently in use is
@@ -109,6 +112,18 @@ Regarding the `db` namespace, migrations tasks must be triggered by a
 target name `db:migrate`.
 
 The `db:migrate` task must create a database dump if an upgrade is required.
+
+A `db:migrate_check` task must be present that exits with non-zero code
+if some migrations are pending.
+
+Here is an example of such task :
+
+```rakefile
+desc 'Check migrations'
+task check: :load_config do
+  Sequel::Migrator.check_current(DB, 'migrations')
+end
+```
 
 ## Code
 
@@ -155,6 +170,24 @@ Deploys should be:
 
 Deployment scenarios must use Ansible v1.6+ roles.
 
+Deployement scenarios must be based solely on information found in
+project's README.md
+
+If a scenario can not be written following the information provided in
+the README.md file, this file must be updated or fixed.
+
+## Running environments
+
+Available running environments must include at least :
+
+- development
+- production
+- test
+
+Other alternative names (e.g. `dev`, `prod`) must not be used.
+
+However, additional names can be used (and documented) if needed.
+
 ## Config files
 
 Config files must live in the config/ directory located at application
@@ -173,7 +206,10 @@ When a `.sample` file changes (added/changed/removed configuration
 keys), the developper must inform the person automating deploys OR
 change the deployment scripts to account for this change.
 
-Thus, deployment tasks must generate proper configuration fileS.
+Thus, deployment tasks must generate proper configuration files.
+
+Inputs coming from configuration files must be sanitized (whitespace
+trimming, slash-deduplication for URLs, etc...).
 
 ## Logging
 
@@ -183,6 +219,8 @@ proper entry for the `thin.yml` could be :
 ```yaml
 log: /var/log/my_awesome_app/thin.log
 ```
+
+Code should not print to directly to filedescriptors (`puts`, `p`, `pp`, ...) but use a logger instead.
 
 ## Production code
 
