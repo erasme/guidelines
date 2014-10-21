@@ -111,6 +111,18 @@ end
 Regarding the `db` namespace, migrations tasks must be triggered by a
 target name `db:migrate`.
 
+A `db:migrate_check` task must be present that exits with non-zero code
+if some migrations are pending.
+
+Here is an example of such task :
+
+```rakefile
+desc 'Check migrations'
+task check: :load_config do
+  Sequel::Migrator.check_current(DB, 'migrations')
+end
+```
+
 ## Code
 
 Ruby code must use a 2 spaces indentation. Tabs must not be used and
