@@ -120,8 +120,9 @@ Here is an example of such task :
 
 ```rakefile
 desc 'Check migrations'
-task check: :load_config do
-  Sequel::Migrator.check_current(DB, 'migrations')
+task check: :migrate_check do
+  Sequel.extension :migration
+  Sequel::Migrator.check_current(Sequel::Model.db, 'db/migrate')
 end
 ```
 
