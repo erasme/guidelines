@@ -10,8 +10,7 @@ when coding/deploying et ERASME.
 
 
 If some points are not listed here, send a PR.
-If you disagree with some points, open an
-[issue](https://github.com/erasme/guidelines/issues).
+If you disagree with some points, open an [issue](https://github.com/erasme/guidelines/issues).
 
 # Applications & Code
 
@@ -32,9 +31,11 @@ Projects must have at least two branches :
 - `master` (the stable, deployable branch)
 - `devel` (unstable branch).
 
-## Testing
+## Ruby environment
 
-Tests must reside in a `spec\` directory, located in the application
+### Testing
+
+Tests must reside in a `spec/` directory, located in the application
 root.
 
 While TDD is not strictly required, tests must be written. It's the
@@ -48,17 +49,17 @@ The coverage method should use SimpleCov.
 A travis config file and associated hooks should be setup for each
 project repository.
 
-## Implementation
+### Implementation
 
 - Produced code must target MRI Ruby >= 2.1
 - Code should run on jruby 1.7+
 
-## Environment
+### Environment setup
 
 While each developpement can use it's ruby environment of choice, the
-deployment environment is [rbenv](https://github.com/sstephenson/rbenv).
+deployment environment is [`rbenv`](https://github.com/sstephenson/rbenv).
 
-## Gemfiles
+### Gemfiles
 
 Gemfiles must use a HTTPS uri :
 
@@ -73,20 +74,20 @@ An application must come with a `Gemfile.lock`.
 However, if specific / minimal versions of some Gem are required, they
 must be set un Gemfile.
 
-## Web server
+### Web server
 
 The web server currently in use is
-[`thin`](http://code.macournoyer.com/thin/).
+[`puma`](https://github.com/puma/puma).
 
-Thus, a `gem 'thin'` entry must be present in the application Gemfile.
+Thus, a `gem 'puma'` entry must be present in the application Gemfile.
 
 A config file for thin must be provided in the `config/` directory located
-in the application root, and must be named `thin.yml`.
+in the application root, and must be named `puma.rb`.
 
 If the application requires another webserver, this issue should be
 discussed in the team before
 
-## Rake tasks
+### Rake tasks
 
 A `Rakefile` must be provided.
 
@@ -106,7 +107,7 @@ namespace :db do
 end
 ```
 
-### db namespace
+#### db namespace
 
 Regarding the `db` namespace, migrations tasks must be triggered by a
 target name `db:migrate`.
@@ -128,8 +129,7 @@ end
 
 ## Code
 
-Ruby code must use a 2 spaces indentation. Tabs must not be used and
-must be  to 2 spaces :
+Ruby code must use a 2 spaces indentation. Tabs must not be used and must be  to 2 spaces :
 
 ### In Vim
 
@@ -155,6 +155,19 @@ Copy config_files/rubocop.yml to ~/.rubocop.yml
 ### JSHint configuration
 
 Copy config_files/jshintrc to ~/.jshintrc
+
+### Exceptions
+
+Exceptions handling must be qualified, and not catch-all (`rescue` which catches `StandardError`, or `rescue Exception` which catches everything) style.
+A log with a clear and understandable message must be emitted using the logger when an exception occurs.
+
+### Leverage caching
+
+Use Redis for shared caching.
+
+### Sessions
+
+Sessions must be shareable. The best way to is to use `redis-rack`.
 
 # System & Deploys
 
@@ -185,7 +198,7 @@ Available running environments must include at least :
 - production
 - test
 
-Other alternative names (e.g. `dev`, `prod`) must not be used.
+Other alternative names (e.g. `dev`, `prod`) must not be used for consistency reasons.
 
 However, additional names can be used (and documented) if needed.
 
@@ -227,7 +240,7 @@ Code should not print to directly to filedescriptors (`puts`, `p`, `pp`, ...) bu
 
 Code deploys are automated and must be done from git checkouts.
 
-The stable branch must be the master branch.
+The stable branch must be the master branch and master must always be deployable.
 
 Code and configurations must not be edited by hand on production servers.
 
