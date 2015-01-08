@@ -74,6 +74,52 @@ An application must come with a `Gemfile.lock`.
 However, if specific / minimal versions of some Gem are required, they
 must be set un Gemfile.
 
+Example minimal `Gemfile`:
+
+```
+source 'https://rubygems.org'
+
+# Distribute app as a gem
+# gemspec
+
+# Optional JSON codec (faster performance)
+# gem 'oj'
+
+# Project requirements
+gem 'rake'
+gem 'dotenv'
+
+# Component requirements
+gem 'bcrypt'
+gem 'mysql2'
+gem 'sequel'
+gem 'redis-rack'
+
+# Server
+gem 'puma'
+
+# Redis
+gem "redis", "~> 3.0.1"
+gem "hiredis", "~> 0.4.5"
+
+group :development do
+  gem 'awesome_print'
+  gem 'stackprof'
+  gem 'pry'
+  gem 'guard'
+  gem 'guard-rspec'
+end
+
+# Test requirements
+group :test do
+  gem 'rspec'
+  gem 'factory_girl'
+  gem 'rack-test', :require => 'rack/test'
+  gem 'simplecov'
+end
+```
+
+
 ### Web server
 
 The web server currently in use is
